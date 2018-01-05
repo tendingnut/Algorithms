@@ -11,6 +11,9 @@ var (
 
 func main() {
 	fmt.Printf("Starting main...\n")
-	sorts.Merge(list)
+	sorted := sorts.Insertion(list, false)
+	sorted2 := sorts.Merge(list)
 	fmt.Println(list)
+	fmt.Println(sorted)
+	fmt.Println(sorted2)
 }

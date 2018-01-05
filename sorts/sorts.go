@@ -5,9 +5,11 @@ import (
 	"math"
 )
 
-//Insertion sort will sort keys either incrementing,
+//Insertion sort has n^2 complexity, and will sort keys either incrementing,
 //or non-incrementing depending on second argument.
-func Insertion(list []float64, inc bool) {
+func Insertion(slice []float64, inc bool) []float64 {
+	list := make([]float64, len(slice))
+	copy(list, slice)
 	for j := 1; j < len(list); j++ {
 		key := list[j]
 		i := j - 1
@@ -24,11 +26,15 @@ func Insertion(list []float64, inc bool) {
 		}
 		list[i+1] = key
 	}
+	return list
 }
 
 //Merge sort has nlg(n) complexity.
-func Merge(list []float64) {
+func Merge(slice []float64) []float64 {
+	list := make([]float64, len(slice))
+	copy(list, slice)
 	mergeSort(list, 0, len(list)-1)
+	return list
 }
 
 //mergeSort divides the list recursively into sub-sections by calling mergeSort(),
