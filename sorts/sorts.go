@@ -8,26 +8,29 @@ import (
 	"time"
 )
 
-type ranList []int
+type list []int
 
-//Newlist returns a list of n random ints in the range 0 to lim.
-func NewList(n int, lim int) ranList {
-	r := rand.New(rand.NewSource(time.Now().UnixNano()))
-	list := make(ranList, n)
-	for i := 0; i < n; i++ {
-		list[i] = r.Intn(lim)
+//Newlist is a constructor for list.
+func NewList(size, maxInt int) list {
+	l := make(list, size)
+	l.Randomize(size, maxInt)
+	return l
+}
+
+//Randomize re-inserts new random values into list
+func (l list) Randomize(size, maxInt int) {
+	random := rand.New(rand.NewSource(time.Now().UnixNano()))
+	for i := 0; i < size; i++ {
+		l[i] = random.Intn(maxInt)
 	}
-	return list
 }
 
 //Reverse the ordering of elements.
-func Reverse(slice []int) []int {
-	list := make([]int, len(slice))
-	copy(list, slice)
-	for i := 0; i < len(slice); i++ {
-		list[i] = slice[len(slice)-i-1]
+func (l list) Reverse() {
+	tmp := list{}
+	for i := 0; i < len(l); i++ {
+		tmp[i] = l[len(l)-i-1]
 	}
-	return list
 }
 
 //Insertion sort has n^2 complexity.
