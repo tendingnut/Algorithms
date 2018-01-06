@@ -5,15 +5,10 @@ import (
 	"github.com/tendingnut/Algorithms/sorts"
 )
 
-var (
-	list = []float64{24, 53, 123, 3, 2, 5, 324, 5.3, 53, 5.3, 5.35, 5.2, 53.2, 523, 9}
-)
-
 func main() {
-	fmt.Printf("Starting main...\n")
-	sorted := sorts.Insertion(list, false)
-	sorted2 := sorts.Merge(list)
-	fmt.Println(list)
-	fmt.Println(sorted)
-	fmt.Println(sorted2)
+	fmt.Println("this is main...")
+	slice := []float64{3, 6, 2, 3.56, 23, 3, 3, 1, 2}
+	sorted := sorts.Insertion(slice)
+	reverse := sorts.Reverse(sorted)
+	fmt.Println(slice, sorted, reverse)
 }

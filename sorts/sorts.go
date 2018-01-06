@@ -1,9 +1,37 @@
-//Implementation of common sorting algorithms for practice
+//Implementation of common sorting algorithms for practice, without
+//using package sort from the standard library
 package sorts
 
 import (
 	"math"
 )
+
+type list interface {
+	Merge()
+	Insertion()
+}
+
+type randomList struct {
+	n int
+}
+
+//func NewList() *list {
+//	return &list{5}
+//}
+
+func NewListRand() {
+
+}
+
+//Reverse the ordering of elements.
+func Reverse(slice []float64) []float64 {
+	list := make([]float64, len(slice))
+	copy(list, slice)
+	for i := 0; i < len(slice); i++ {
+		list[i] = slice[len(slice)-i-1]
+	}
+	return list
+}
 
 //Insertion sort has n^2 complexity.
 func Insertion(slice []float64) []float64 {
@@ -13,22 +41,6 @@ func Insertion(slice []float64) []float64 {
 		key := list[j]
 		i := j - 1
 		for i >= 0 && list[i] > key {
-			list[i+1] = list[i]
-			i--
-		}
-		list[i+1] = key
-	}
-	return list
-}
-
-//InsertionDec sorts in decrementing order
-func InsertionDec(slice []float64) []float64 {
-	list := make([]float64, len(slice))
-	copy(list, slice)
-	for j := 1; j < len(list); j++ {
-		key := list[j]
-		i := j - 1
-		for i >= 0 && list[i] < key {
 			list[i+1] = list[i]
 			i--
 		}
