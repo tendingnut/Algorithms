@@ -5,24 +5,32 @@ import (
 	"math"
 )
 
-//Insertion sort has n^2 complexity, and will sort keys either incrementing,
-//or non-incrementing depending on second argument.
-func Insertion(slice []float64, inc bool) []float64 {
+//Insertion sort has n^2 complexity.
+func Insertion(slice []float64) []float64 {
 	list := make([]float64, len(slice))
 	copy(list, slice)
 	for j := 1; j < len(list); j++ {
 		key := list[j]
 		i := j - 1
-		if inc {
-			for i >= 0 && list[i] > key {
-				list[i+1] = list[i]
-				i--
-			}
-		} else {
-			for i >= 0 && list[i] < key {
-				list[i+1] = list[i]
-				i--
-			}
+		for i >= 0 && list[i] > key {
+			list[i+1] = list[i]
+			i--
+		}
+		list[i+1] = key
+	}
+	return list
+}
+
+//InsertionDec sorts in decrementing order
+func InsertionDec(slice []float64) []float64 {
+	list := make([]float64, len(slice))
+	copy(list, slice)
+	for j := 1; j < len(list); j++ {
+		key := list[j]
+		i := j - 1
+		for i >= 0 && list[i] < key {
+			list[i+1] = list[i]
+			i--
 		}
 		list[i+1] = key
 	}
