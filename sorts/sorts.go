@@ -1,40 +1,79 @@
-//Implementation of common sorting algorithms for practice, without
-//using package sort from the standard library
+//Implementation of common sorting algorithms for practice
 package sorts
 
 import (
+	"fmt"
 	"math"
 	"math/rand"
 	"time"
 )
 
-//Used to easily create randomized lists for sorting.
-type list []int
+//create randomized slice of ints
+type rList []int
 
-//Newlist is a constructor for list.
-func NewList(size, maxInt int) list {
-	l := make(list, size)
-	l.Randomize(maxInt)
-	return l
+//Newlist is a constructor for rList.
+func NewList(size int) rList {
+	rl := make(rList, size)
+	rl.Randomize()
+	return rl
 }
 
-//Randomize re-inserts new random values into list
-func (l list) Randomize(maxInt int) {
+//Randomize inserts new random values into list
+func (rl rList) Randomize() {
 	random := rand.New(rand.NewSource(time.Now().UnixNano()))
-	for i := 0; i < len(l); i++ {
-		l[i] = random.Intn(maxInt)
+	for i := 0; i < len(rl); i++ {
+		rl[i] = random.Intn(math.MaxInt64)
 	}
 }
 
 //Reverse the ordering of elements.
-func (l list) Reverse() {
-	tmp := make(list, len(l))
-	for i := 0; i < len(l); i++ {
-		tmp[i] = l[len(l)-i-1]
+func (rl rList) Reverse() {
+	tmp := make(rList, len(rl))
+	for i := 0; i < len(rl); i++ {
+		tmp[i] = rl[len(rl)-i-1]
 	}
-	for i := 0; i < len(l); i++ {
-		l[i] = tmp[i]
+	for i := 0; i < len(rl); i++ {
+		rl[i] = tmp[i]
 	}
+}
+
+//Sorted checks if the slice of ints is sorted
+//in either increasing or decreasing order.
+//if empty, or all equal values, then returns true
+func Sorted(list []int) bool {
+	if sortedInc(list) == false {
+		fmt.Println("sortedInc returned false...")
+		if sortedDec(list) == false {
+			fmt.Println("sortedDec returned false...")
+			return false
+		}
+	}
+	return true
+}
+
+func sortedInc(list []int) bool {
+	for i := 0; i < len(list)-1; i++ {
+		if list[i] > list[i+1] {
+			fmt.Println("%v > %v?", list[i], list[i+1])
+			return false
+		}
+		if i == len(list)-2 {
+			return true
+		}
+	}
+	return true
+}
+
+func sortedDec(list []int) bool {
+	for i := 0; i < len(list)-1; i++ {
+		if list[i] < list[i+1] {
+			return false
+		}
+		if i == len(list)-2 {
+			return true
+		}
+	}
+	return true
 }
 
 //Insertion sort has n^2 complexity.
